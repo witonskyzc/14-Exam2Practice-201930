@@ -6,8 +6,8 @@ This problem provides practice at:
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Zach Witonsky.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ###############################################################################
 # Students:
@@ -32,7 +32,6 @@ Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
 import time
 import sys
 
-
 def main():
     """ Calls the   TEST   functions in this module. """
 
@@ -41,7 +40,7 @@ def main():
     ###########################################################################
 
     # run_test_init()
-    # run_test_append_string()
+    run_test_append_string()
     # run_test_double()
     # run_test_shrink()
     # run_test_double_then_shrink()
@@ -49,7 +48,6 @@ def main():
     # run_test_steal()
     # run_test_get_history()
     # run_test_combined_box()
-
 
 ###############################################################################
 # The   Box   class (and its methods) begins here.
@@ -95,7 +93,7 @@ class Box(object):
           :type volume: int
         """
         # ---------------------------------------------------------------------
-        # TODO: 2. Implement and test this function.
+        # DONE: 2. Implement and test this function.
         #     See the testing code (below) for more examples.
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -103,6 +101,13 @@ class Box(object):
         #    DIFFICULTY:      3
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
+
+        if len(contents) <= volume:
+            self.contents = contents
+            self.volume = volume
+        else:
+            self.contents = ''
+            self.volume = volume
 
     def append_string(self, additional_contents):
         """
@@ -136,7 +141,7 @@ class Box(object):
           :type additional_contents: str
         """
         # ---------------------------------------------------------------------
-        # TODO: 3. Implement and test this function.
+        # DONE: 3. Implement and test this function.
         #     See the testing code (below) for more examples.
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -158,6 +163,44 @@ class Box(object):
         #       Read_this_ONLY_when_asked_Part_2.txt
         #    and complete your work on the problem.
         # ---------------------------------------------------------------------
+
+        # ---------------------------------------------------------------------
+        # Determine how much space is available for the new contents,
+        # and then how many characters of the additional_contents
+        # can be appended to this Box's contents:
+        # ---------------------------------------------------------------------
+
+        space = self.volume - len(self.contents)
+        number_of_characters_to_append = min(space, len(additional_contents))
+
+        # ---------------------------------------------------------------------
+        # Build up a string that is the characters to append
+        # (that is, those that will fit into this Box).
+        # Then append that string to this Box's contents:
+        # ---------------------------------------------------------------------
+
+        stuff_to_add = ''
+        for k in range(number_of_characters_to_append):
+            stuff_to_add = stuff_to_add + additional_contents[k]
+        self.contents = self.contents + stuff_to_add
+
+        # ---------------------------------------------------------------------
+        # Build up a string that is the characters that were NOT
+        # appended, by starting at the place where the previous loop
+        # left off and continuing to the end of the additional_contents.
+        # This will be a loop that goes NO times if the entire
+        # additional_contents fits into this Box's contents:
+        # ---------------------------------------------------------------------
+
+        stuff_to_return = ''
+        for k in range(number_of_characters_to_append, len(additional_contents)):
+            stuff_to_return = stuff_to_return + additional_contents[k]
+
+        # ---------------------------------------------------------------------
+        # Return the result from the previous loop:
+        # ---------------------------------------------------------------------
+
+        return stuff_to_return
 
     def double(self):
         """
@@ -193,7 +236,7 @@ class Box(object):
           #                       contents that did NOT fit]
         """
         # ---------------------------------------------------------------------
-        # TODO: 4. Implement and test this function.
+        # DONE: 4. Implement and test this function.
         #     The testing code is already written for you (above).
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -205,6 +248,9 @@ class Box(object):
         # FOR FULL CREDIT, YOUR SOLUTION MUST BE NO MORE THAN
         #    ** TWO **   LINES OF CODE.
         #######################################################################
+
+        clipped = self.append_string(self.contents)
+        return clipped
 
     def shrink(self, new_volume):
         """
@@ -253,6 +299,25 @@ class Box(object):
         # IMPORTANT: Write a solution to this problem in pseudo-code,
         # and THEN translate the pseudo-code to a solution.
         # ---------------------------------------------------------------------
+
+        # self.volume = new_volume
+        #
+        # clipped = self.append_string(self.contents)
+        # return clipped
+
+        # space = new_volume - len(self.contents)
+        # number_of_characters_to_append = min(space, self.volume - new_volume)
+        #
+        # stuff_to_add = ''
+        # for k in range(number_of_characters_to_append):
+        #     stuff_to_add = stuff_to_add + self.contents[number_of_characters_to_append - k]
+        # self.contents = self.contents + stuff_to_add
+
+        # stuff_to_return = ''
+        # for k in range(number_of_characters_to_append, self.volume - new_volume):
+        #     # stuff_to_return = stuff_to_return + self.contents[number_of_characters_to_append - (k-1)]
+        #     stuff_to_return = stuff_to_return + self.contents[k]
+        # return stuff_to_return
 
     def double_then_shrink(self, new_volume):
         """
@@ -325,6 +390,12 @@ class Box(object):
         #    DIFFICULTY:      4
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
+
+        x = self.contents
+        y = self.volume
+
+        self.contents = y
+        self.volume = x
 
     def steal(self, other_box):
         """
@@ -424,7 +495,6 @@ class Box(object):
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
 
-
 ###############################################################################
 # The TEST functions for the  Box  class begin here.
 ###############################################################################
@@ -470,7 +540,6 @@ def run_test_init():
     else:
         print_failure_message()
     print()
-
 
 def run_test_append_string():
     """ Tests the   append_string   method of the Box class. """
@@ -518,7 +587,6 @@ def run_test_append_string():
     else:
         print_failure_message()
     print()
-
 
 def run_test_double():
     """ Tests the   double   method of the Box class. """
@@ -615,7 +683,6 @@ def run_test_double():
         print_failure_message()
     print()
 
-
 def run_test_shrink():
     """ Tests the   shrink   method of the Box class. """
     print()
@@ -660,7 +727,6 @@ def run_test_shrink():
     else:
         print_failure_message()
     print()
-
 
 def run_test_double_then_shrink():
     """ Tests the   double_then_shrink   method of the Box class. """
@@ -749,7 +815,6 @@ def run_test_double_then_shrink():
         print_failure_message()
     print()
 
-
 def run_test_reset():
     """ Tests the   reset   method of the Box class. """
     print()
@@ -796,7 +861,6 @@ def run_test_reset():
     else:
         print_failure_message()
     print()
-
 
 def run_test_steal():
     """ Tests the   steal   method of the Box class. """
@@ -863,7 +927,6 @@ def run_test_steal():
     else:
         print_failure_message()
     print()
-
 
 def run_test_get_history():
     """ Tests the   get_history   method of the Box class. """
@@ -959,7 +1022,6 @@ def run_test_get_history():
         print_failure_message()
     print()
 
-
 def run_test_combined_box():
     """ Tests the   combined_box   method of the Box class. """
     print()
@@ -998,7 +1060,6 @@ def run_test_combined_box():
         print_failure_message()
     print()
 
-
 def print_failure_message(message='  *** FAILED the above test. ***',
                           flush_time=1.0):
     """ Prints a message onto stderr, hence in RED. """
@@ -1006,7 +1067,6 @@ def print_failure_message(message='  *** FAILED the above test. ***',
     print(message,
           file=sys.stderr, flush=True)
     time.sleep(flush_time)
-
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

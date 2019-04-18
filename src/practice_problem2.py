@@ -3,8 +3,8 @@ PRACTICE Exam 2, practice_problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Zach Witonsky.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ###############################################################################
 # Students:
@@ -29,12 +29,10 @@ Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
 import testing_helper
 import time
 
-
 def main():
     """ Calls the   TEST   functions in this module. """
     run_test_practice_problem2a()
     run_test_practice_problem2b()
-
 
 ###############################################################################
 # Students: Some of the testing code below uses a simple testing framework.
@@ -44,7 +42,7 @@ def main():
 def run_test_practice_problem2a():
     """ Tests the   practice_problem2a  function. """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # DONE: 2. Implement this TEST function.
     #   It TESTS the  practice_problem2a  function defined below.
     #   Include at least **   4    ** tests that, taken together,
     #   would form a    ** REASONABLY GOOD test set **
@@ -59,6 +57,29 @@ def run_test_practice_problem2a():
     print('Testing the   practice_problem2a   function:')
     print('--------------------------------------------------')
 
+    sequence1 = [2, 10, 5, -20, 8]
+    set1 = practice_problem2a(sequence1, 6)
+
+    print('Test 1', 6)
+    print(sequence1, set1)
+
+    sequence2 = [7, 2, 111]
+    set2 = practice_problem2a(sequence2, 21)
+
+    print('Test 2', 21)
+    print(sequence2, set2)
+
+    sequence3 = [2112,333,5,10,100]
+    set3 = practice_problem2a(sequence3, 0)
+
+    print('Test 3', 0)
+    print(sequence3, set3)
+
+    sequence4 = [1, 2, 3, 4, 5, 6]
+    set4 = practice_problem2a(sequence4, 10)
+
+    print('Test 4', 10)
+    print(sequence4, set4)
 
 def practice_problem2a(sequence, delta):
     """
@@ -79,7 +100,7 @@ def practice_problem2a(sequence, delta):
       :type delta:    int
     """
     ###########################################################################
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     WRITE THE TESTS FIRST (above).
     ###########################################################################
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
@@ -87,6 +108,11 @@ def practice_problem2a(sequence, delta):
     #    TIME ESTIMATE:   5 minutes.
     ###########################################################################
 
+    sequence_new = []
+    for k in range(len(sequence)):
+        sequence_new = sequence_new + [sequence[k] + delta]
+
+    return sequence_new
 
 def run_test_practice_problem2b():
     """ Tests the   practice_problem2b  function. """
@@ -166,7 +192,6 @@ def run_test_practice_problem2b():
     # SUMMARY of test results:
     print_summary_of_test_results(test_results)
 
-
 def practice_problem2b(sequence):
     """
     What comes in:
@@ -187,7 +212,7 @@ def practice_problem2b(sequence):
       :type sequence: [str]
     """
     ###########################################################################
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #     The testing code is already written for you (above).
     ###########################################################################
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
@@ -195,6 +220,14 @@ def practice_problem2b(sequence):
     #    TIME ESTIMATE:   10 minutes.
     ###########################################################################
 
+    first = ''
+    for k in range(len(sequence)):
+        for x in range(1):
+            if sequence[k] == '':
+                first = first
+            else:
+                first = first + sequence[k][x]
+    return first
 
 ###############################################################################
 # Our tests use the following to print error messages in red.
